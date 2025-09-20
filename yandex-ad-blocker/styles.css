@@ -1,0 +1,85 @@
+/* Яндекс Блокировщик Рекламы - CSS стили */
+
+/* Основные рекламные блоки с явными признаками рекламы */
+.serp-adv__item,
+.serp-adv__wrapper,
+.serp-adv__link,
+.serp-adv,
+.serp-item[data-cid*="adv"],
+.serp-item[data-cid*="ad"],
+.organic[data-cid*="adv"],
+.organic[data-cid*="ad"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Блоки Direct (Яндекс.Директ) */
+.direct-item,
+.direct-wrapper,
+.serp-item[data-bem*="direct"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Баннерные и промо блоки, если они не являются частью основного интерфейса */
+.banner-item,
+.promo-block,
+.promotional {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Элементы, помеченные как заблокированные */
+[data-yandex-ad-blocked="true"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Дополнительные селекторы для скрытия рекламы по тексту */
+.serp-item:has(.label:contains("Реклама")),
+.serp-item:has(.organic__label:contains("Реклама")),
+.serp-item:has(.organic__subtitle:contains("Реклама")) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Скрытие родительских контейнеров рекламных ссылок */
+.serp-item:has(a[href*="an.yandex.ru"]),
+.serp-item:has(a[href*="direct.yandex.ru"]),
+.serp-item:has(a[href*="yabs.yandex.ru"]),
+.organic:has(a[href*="an.yandex.ru"]),
+.organic:has(a[href*="direct.yandex.ru"]),
+.organic:has(a[href*="yabs.yandex.ru"]) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Исключение для элементов, которые могут быть ошибочно приняты за рекламу */
+.search-input__text,
+.search-input__voice-button,
+.search-input__button {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+

@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "Яндекс Блокировщик Рекламы",
+  "version": "1.1",
+  "description": "Блокирует рекламу в поисковой выдаче Яндекса",
+  "permissions": [
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://yandex.ru/*",
+    "*://yandex.com/*",
+    "*://ya.ru/*",
+    "*://*.yandex.ru/*",
+    "*://*.yandex.com/*",
+    "*://*.ya.ru/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://yandex.ru/search*",
+        "*://yandex.com/search*",
+        "*://ya.ru/search*",
+        "*://*.yandex.ru/search*",
+        "*://*.yandex.com/search*",
+        "*://*.ya.ru/search*"
+      ],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_end"
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Яндекс Блокировщик Рекламы"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
+

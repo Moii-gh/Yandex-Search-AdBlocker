@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Яндекс Блокировщик Рекламы</title>
+    <style>
+        body {
+            width: 300px;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            background: #f5f5f5;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .logo {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            border-radius: 12px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+        
+        .status {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+        }
+        
+        .status-text {
+            font-size: 14px;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .stats {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stats h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .stats-label {
+            color: #666;
+        }
+        
+        .stats-value {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .controls {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .toggle-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .toggle-button:hover {
+            background: #ff5252;
+        }
+        
+        .toggle-button.disabled {
+            background: #ccc;
+        }
+        
+        .info {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">🚫</div>
+        <h1>Яндекс Блокировщик Рекламы</h1>
+    </div>
+    
+    <div class="status">
+        <div class="status-indicator">
+            <div class="status-dot" id="statusDot"></div>
+            <div class="status-text" id="statusText">Активен</div>
+        </div>
+    </div>
+    
+    <div class="stats">
+        <h3>Статистика</h3>
+        <div class="stats-item">
+            <span class="stats-label">Заблокировано на этой странице:</span>
+            <span class="stats-value" id="blockedCount">0</span>
+        </div>
+        <div class="stats-item">
+            <span class="stats-label">Всего заблокировано:</span>
+            <span class="stats-value" id="totalBlocked">0</span>
+        </div>
+    </div>
+    
+    <div class="controls">
+        <button class="toggle-button" id="toggleButton">Отключить на этом сайте</button>
+    </div>
+    
+    <div class="info">
+        Версия 1.0 | Блокирует рекламу в поисковой выдаче Яндекса
+    </div>
+    
+    <script src="popup.js"></script>
+</body>
+</html>
+
