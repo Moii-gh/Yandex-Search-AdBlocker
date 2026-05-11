@@ -1,8 +1,11 @@
-// Yandex Search AdBlocker - content script
+// Контент-скрипт работает прямо на странице поиска: ищет рекламные признаки в DOM и скрывает найденные блоки.
 (function() {
     'use strict';
 
+    // Атрибут нужен как CSS-хук и как защита от повторного подсчета одного и того же блока.
     const BLOCKED_ATTR = 'data-yandex-ad-blocked';
+
+    // Эти контейнеры можно скрывать целиком: внутри обычно лежит отдельный результат выдачи или рекламный виджет.
     const RESULT_CONTAINER_SELECTOR = [
         '.serp-item',
         '.organic',
@@ -13,6 +16,7 @@
         '.direct-wrapper'
     ].join(', ');
 
+    // Явные рекламные классы Яндекса. Если такой узел найден внутри результата, скрываем весь результат.
     const DIRECT_AD_SELECTORS = [
         '.serp-adv',
         '.serp-adv__item',
@@ -22,6 +26,7 @@
         '.direct-wrapper'
     ];
 
+    // Рекламные домены встречаются даже тогда, когда видимая метка "реклама" спрятана глубже в разметке.
     const AD_LINK_SELECTORS = [
         'a[href*="//an.yandex."]',
         'a[href*="//yabs.yandex."]',
@@ -29,6 +34,7 @@
         'a[href*="//yandexadexchange."]'
     ];
 
+    // Проверяем короткие подписи и служебные атрибуты. Полный текст результата не трогаем, чтобы не ловить "ad" в обычных словах.
     const AD_MARKER_SELECTORS = [
         '.label',
         '.organic__label',
@@ -38,6 +44,7 @@
         '[title]'
     ];
 
+    // Интерфейс поиска не скрываем, даже если внутри Яндекс использует похожие классы или data-атрибуты.
     const SEARCH_UI_SELECTOR = [
         'html',
         'body',
@@ -53,10 +60,11 @@
         '.navigation'
     ].join(', ');
 
+    // Только короткие рекламные метки. Сниппеты и заголовки результатов проходят отдельную защиту по длине.
     const AD_LABELS = new Set([
-        '\u0440\u0435\u043a\u043b\u0430\u043c\u0430',
-        '\u043d\u0430 \u043f\u0440\u0430\u0432\u0430\u0445 \u0440\u0435\u043a\u043b\u0430\u043c\u044b',
-        '\u043f\u0440\u043e\u043c\u043e',
+        'реклама',
+        'на правах рекламы',
+        'промо',
         'ad',
         'ads',
         'promo',
@@ -68,6 +76,8 @@
     let blockedCount = 0;
     let observer = null;
     let scanTimer = null;
+    let totalStatsTimer = null;
+    let pendingTotalIncrement = 0;
 
     function hideElement(element) {
         if (!element || element.getAttribute(BLOCKED_ATTR) === 'true' || shouldKeepVisible(element)) {
@@ -75,13 +85,46 @@
         }
 
         element.setAttribute(BLOCKED_ATTR, 'true');
+
+        // Инлайн-стили дублируют CSS-правило: так блок остается скрытым после динамических перерисовок выдачи.
         element.style.setProperty('display', 'none', 'important');
         element.style.setProperty('visibility', 'hidden', 'important');
         element.style.setProperty('opacity', '0', 'important');
         element.style.setProperty('height', '0', 'important');
         element.style.setProperty('overflow', 'hidden', 'important');
-        blockedCount += 1;
+
+        recordBlockedElement();
         return true;
+    }
+
+    function recordBlockedElement() {
+        blockedCount += 1;
+        pendingTotalIncrement += 1;
+        scheduleTotalStatsFlush();
+    }
+
+    function scheduleTotalStatsFlush() {
+        if (totalStatsTimer || !canUseChromeStorage()) {
+            return;
+        }
+
+        // За один проход может скрыться несколько блоков, поэтому пишем статистику пачкой.
+        totalStatsTimer = setTimeout(flushTotalStats, 250);
+    }
+
+    function flushTotalStats() {
+        const increment = pendingTotalIncrement;
+        pendingTotalIncrement = 0;
+        totalStatsTimer = null;
+
+        if (!increment || !canUseChromeStorage()) {
+            return;
+        }
+
+        chrome.storage.local.get(['totalBlocked'], result => {
+            const currentTotal = Number(result.totalBlocked) || 0;
+            chrome.storage.local.set({ totalBlocked: currentTotal + increment });
+        });
     }
 
     function shouldKeepVisible(element) {
@@ -89,6 +132,7 @@
             return true;
         }
 
+        // Если рекламный признак поднялся до родителя с полем поиска, лучше пропустить блок, чем сломать страницу.
         return Boolean(element.querySelector([
             'input[type="search"]',
             'input[name="text"]',
@@ -108,6 +152,7 @@
             return false;
         }
 
+        // Ищем отдельный рекламный токен, а не совпадение внутри "adapter", "Adobe" или похожих слов.
         return /(^|[^a-z0-9])(ad|ads|adv|advert|serp-adv)([^a-z0-9]|$)/i.test(value);
     }
 
@@ -116,6 +161,7 @@
             return false;
         }
 
+        // В className разделителями часто бывают пробел, дефис и подчеркивание.
         return /(^|[\s_-])(adv|advert|serp-adv|direct-item|direct-wrapper)([\s_-]|$)/i.test(value);
     }
 
@@ -148,8 +194,8 @@
         }
 
         return AD_LABELS.has(text) ||
-            text.startsWith('\u0440\u0435\u043a\u043b\u0430\u043c\u0430:') ||
-            text.startsWith('\u043f\u0440\u043e\u043c\u043e:');
+            text.startsWith('реклама:') ||
+            text.startsWith('промо:');
     }
 
     function getOwnText(element) {
@@ -172,6 +218,7 @@
     }
 
     function scanForAds() {
+        // Сначала убираем очевидные рекламные узлы, затем проверяем обычные контейнеры по ссылкам, меткам и атрибутам.
         DIRECT_AD_SELECTORS.forEach(selector => {
             document.querySelectorAll(selector).forEach(element => {
                 hideElement(closestBlockTarget(element));
@@ -194,6 +241,7 @@
             return;
         }
 
+        // Выдача обновляется пачками DOM-мутаций. Небольшая задержка склеивает их в один проход.
         scanTimer = setTimeout(() => {
             scanTimer = null;
             scanForAds();
@@ -203,6 +251,7 @@
     function startBlocking() {
         scanForAds();
 
+        // Нужен для догрузки результатов и внутренних переходов без полной перезагрузки страницы.
         observer = new MutationObserver(scheduleScan);
         observer.observe(document.documentElement, {
             childList: true,
@@ -215,6 +264,7 @@
             return;
         }
 
+        // Попап не видит DOM страницы, поэтому запрашивает счетчик у контент-скрипта активной вкладки.
         chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             if (request && request.action === 'getStats') {
                 sendResponse({ blockedCount });
@@ -222,14 +272,19 @@
         });
     }
 
+    function canUseChromeStorage() {
+        return Boolean(typeof chrome !== 'undefined' && chrome.storage && chrome.storage.local);
+    }
+
     function init() {
         setupMessages();
 
-        if (typeof chrome === 'undefined' || !chrome.storage || !chrome.storage.local) {
+        if (!canUseChromeStorage()) {
             startBlocking();
             return;
         }
 
+        // Ключом остается полный URL: пользователь отключает блокировку для конкретной страницы выдачи.
         chrome.storage.local.get([window.location.href], result => {
             if (result[window.location.href] !== false) {
                 startBlocking();

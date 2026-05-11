@@ -1,4 +1,4 @@
-/* Yandex Search AdBlocker - styles controlled by content.js */
+/* Скрываем только элементы, которые content.js уже пометил как рекламу. Сами рекламные селекторы держим в JS, чтобы CSS не зацепил лишнюю выдачу. */
 
 [data-yandex-ad-blocked="true"] {
     display: none !important;
