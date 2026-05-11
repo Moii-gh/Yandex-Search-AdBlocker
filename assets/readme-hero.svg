@@ -1,0 +1,98 @@
+<svg width="1200" height="460" viewBox="0 0 1200 460" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Yandex Search AdBlocker cleans ads</title>
+  <desc id="desc">A stylized Yandex mark sweeps promo ad cards away from a clean search page.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1200" y2="460" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10131B"/>
+      <stop offset="0.48" stop-color="#171B25"/>
+      <stop offset="1" stop-color="#0B1018"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="155" y1="70" x2="980" y2="410" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.06"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="324" y1="68" x2="877" y2="380" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="24" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="16" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="460" rx="34" fill="url(#bg)"/>
+  <path d="M0 352C126 300 216 333 324 360C476 398 605 415 754 359C900 304 1007 269 1200 312V460H0V352Z" fill="#151A24"/>
+  <circle cx="1010" cy="88" r="130" fill="#FFCC00" opacity="0.1"/>
+  <circle cx="145" cy="390" r="110" fill="#FC3F1D" opacity="0.09"/>
+
+  <g filter="url(#shadow)">
+    <rect x="150" y="70" width="760" height="310" rx="28" fill="url(#panel)" stroke="#FFFFFF" stroke-opacity="0.16"/>
+    <path d="M177 146H883" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <rect x="192" y="104" width="470" height="28" rx="14" fill="#F5F7FB"/>
+    <circle cx="214" cy="118" r="7" fill="#FC3F1D"/>
+    <rect x="235" y="112" width="188" height="12" rx="6" fill="#8A94A6"/>
+    <rect x="438" y="112" width="78" height="12" rx="6" fill="#D0D7E2"/>
+    <rect x="530" y="112" width="98" height="12" rx="6" fill="#D0D7E2"/>
+
+    <g opacity="0.96">
+      <rect x="195" y="176" width="565" height="54" rx="14" fill="#FFFFFF"/>
+      <rect x="220" y="191" width="275" height="11" rx="5.5" fill="#2D7FEA"/>
+      <rect x="220" y="210" width="450" height="9" rx="4.5" fill="#7B8493"/>
+      <circle cx="724" cy="203" r="12" fill="#19C37D" opacity="0.18"/>
+      <path d="M718 203L722 207L731 197" stroke="#19C37D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g opacity="0.96">
+      <rect x="195" y="250" width="565" height="54" rx="14" fill="#FFFFFF"/>
+      <rect x="220" y="265" width="315" height="11" rx="5.5" fill="#2D7FEA"/>
+      <rect x="220" y="284" width="410" height="9" rx="4.5" fill="#7B8493"/>
+      <circle cx="724" cy="277" r="12" fill="#19C37D" opacity="0.18"/>
+      <path d="M718 277L722 281L731 271" stroke="#19C37D" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+
+    <g opacity="0.95">
+      <rect x="790" y="176" width="165" height="54" rx="14" fill="#FC3F1D" opacity="0.95"/>
+      <rect x="812" y="193" width="80" height="9" rx="4.5" fill="#FFFFFF" opacity="0.86"/>
+      <rect x="812" y="211" width="111" height="8" rx="4" fill="#FFFFFF" opacity="0.58"/>
+      <text x="912" y="205" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="16" font-weight="700">AD</text>
+    </g>
+
+    <g opacity="0.9" transform="rotate(-8 876 302)">
+      <rect x="790" y="278" width="165" height="54" rx="14" fill="#FC3F1D" opacity="0.78"/>
+      <rect x="812" y="295" width="88" height="9" rx="4.5" fill="#FFFFFF" opacity="0.86"/>
+      <rect x="812" y="313" width="108" height="8" rx="4" fill="#FFFFFF" opacity="0.55"/>
+      <text x="904" y="307" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="15" font-weight="700">ПРОМО</text>
+    </g>
+  </g>
+
+  <g filter="url(#glow)">
+    <circle cx="178" cy="222" r="74" fill="#FC3F1D"/>
+    <text x="178" y="257" text-anchor="middle" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="96" font-weight="800">Я</text>
+  </g>
+
+  <g transform="translate(672 238) rotate(-18)">
+    <rect x="0" y="45" width="280" height="15" rx="7.5" fill="#E7D2A6"/>
+    <rect x="260" y="31" width="68" height="43" rx="8" fill="#20C997"/>
+    <path d="M268 74H326L314 116H278L268 74Z" fill="#14A66F"/>
+    <path d="M282 116L275 146M296 116L292 148M310 116L315 146" stroke="#D4F7E9" stroke-width="5" stroke-linecap="round"/>
+  </g>
+
+  <g>
+    <path d="M896 178C939 170 974 153 1007 124" stroke="#20C997" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 18"/>
+    <path d="M867 310C925 313 975 298 1024 264" stroke="#20C997" stroke-width="7" stroke-linecap="round" stroke-dasharray="1 18"/>
+  </g>
+
+  <g>
+    <rect x="82" y="315" width="418" height="52" rx="26" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.13"/>
+    <text x="112" y="348" fill="#FFFFFF" font-family="Arial, sans-serif" font-size="23" font-weight="700">чистая поисковая выдача без рекламного шума</text>
+  </g>
+
+  <path d="M150 70H910C879 94 847 104 810 101C751 96 723 111 683 143C625 190 548 202 483 174C415 145 363 153 315 191C270 227 217 232 150 210V70Z" fill="url(#shine)"/>
+</svg>
