@@ -1,5 +1,9 @@
 # Yandex Search AdBlocker
 
+<p align="center">
+  <img src="../assets/readme-banner.png" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
+</p>
+
 Эту папку можно загрузить как отдельное распакованное расширение. Основной вариант установки - выбрать корневую папку проекта:
 
 ```text

@@ -1,5 +1,9 @@
 # Yandex Search AdBlocker
 
+<p align="center">
+  <img src="./assets/readme-banner.png" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
+</p>
+
 Расширение Manifest V3 для Chrome, Chromium и Edge. Скрывает рекламные блоки в поисковой выдаче Яндекса и старается не трогать обычные результаты.
 
 ## Что делает
