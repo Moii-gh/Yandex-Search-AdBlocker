@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/readme-hero.svg" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
+  <img src="./assets/readme-banner.png" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
 </p>
 
 <h1 align="center">Yandex Search AdBlocker</h1>
@@ -75,14 +75,16 @@ https://*.ya.ru/search*
 .
 ├── manifest.json                  # Манифест для загрузки из корня проекта
 ├── assets/
-│   └── readme-hero.svg            # Баннер README
+│   ├── readme-banner.png          # Сгенерированный баннер README
+│   └── extension-logo-source.png  # Исходник сгенерированного логотипа
 └── yandex-ad-blocker/
     ├── content.js                 # Основная логика блокировки
     ├── styles.css                 # Скрытие помеченных элементов
     ├── popup.html                 # Интерфейс расширения
     ├── popup.js                   # Логика попапа
     ├── manifest.json              # Манифест для загрузки подпапки
-    └── icon*.png                  # Иконки расширения
+    ├── logo-source.png            # Исходник логотипа для расширения
+    └── icon*.png                  # Иконки расширения 16/48/128
 ```
 
 ## Разработка

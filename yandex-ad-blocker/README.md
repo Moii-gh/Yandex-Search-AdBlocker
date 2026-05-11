@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="../assets/readme-hero.svg" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
+  <img src="../assets/readme-banner.png" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
 </p>
 
 <h1 align="center">Yandex Search AdBlocker</h1>
