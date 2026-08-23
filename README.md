@@ -1,4 +1,4 @@
-# Yandex Search AdBlocker
+# Yandex AdBlocker
 
 <p align="center">
   <img src="./assets/readme-banner.png" alt="Yandex Search AdBlocker очищает рекламные блоки" width="100%">
